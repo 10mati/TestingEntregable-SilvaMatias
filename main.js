@@ -2,6 +2,7 @@
 class productManager {
     constructor() {
         this.products = []
+        this.patch = "./productos.txt"
     }
 
     addProduct(title, description, price, img, code, stock) {
