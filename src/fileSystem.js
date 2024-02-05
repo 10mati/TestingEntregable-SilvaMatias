@@ -1,6 +1,7 @@
-const fs = require('fs').promises;
+//const fs = require('fs').promises;
+import fsPromises from 'fs/promises';
 
-class ProductManager {
+ export default class ProductManager {
 
     constructor() {
 
@@ -14,7 +15,7 @@ class ProductManager {
 
         try {
 
-            const data = await fs.readFile(this.filePath, 'utf-8');
+            const data = await fsPromises.readFile(this.filePath, 'utf-8');
 
             this.products = JSON.parse(data);
 
@@ -32,7 +33,7 @@ class ProductManager {
 
         try {
 
-            await fs.writeFile(this.filePath, JSON.stringify(this.products, null, 2), 'utf-8');
+            await fsPromises.writeFile(this.filePath, JSON.stringify(this.products, null, 2), 'utf-8');
 
         } catch (error) {
 
@@ -88,7 +89,7 @@ class ProductManager {
 
         await this.loadProducts();
 
-        console.log(this.products);
+        return this.products;
 
     }
 
@@ -113,14 +114,14 @@ class ProductManager {
         await this.loadProducts();
         this.products = this.products.filter(products=> products.id != id)
         await this.saveProducts()
-        console.log(this.deleteProduct)
+        
     }
     async upDateProduct(id, updatedFields){
         await this.loadProducts();
         const productIndex = this.products.findIndex((product) => product.id === id);
         this.products[productIndex] = { ...this.products[productIndex], ...updatedFields };
         await this.saveProducts();
-        console.log(this.upDateProduct)
+        
     }
 }
 
@@ -129,11 +130,9 @@ class ProductManager {
 
 
 
+/*const productos = new ProductManager();
 
-
-const productos = new ProductManager();
-
-async function test() {
+//async function test() {
 
     await productos.getProduct();
 
@@ -143,9 +142,23 @@ async function test() {
 
     await productos.addProduct('titulo3', 'descripcion3',1000,'img3','abc125', 8);
 
-    const product = await productos.getProductById(2);
+    await productos.addProduct('titulo4', 'descripcion4', 1000, 'img4', 'abc126', 5);
 
-   console.log(product);
+    await productos.addProduct('titulo5', 'descripcion5', 1000, 'img5', 'abc127', 5);
+
+    await productos.addProduct('titulo6', 'descripcion6', 1000, 'img6', 'abc128', 5);
+
+    await productos.addProduct('titulo7', 'descripcion7', 1000, 'img7', 'abc129', 5);
+
+    await productos.addProduct('titulo8', 'descripcion8', 1000, 'img8', 'abc130', 5);
+
+    await productos.addProduct('titulo9', 'descripcion9', 1000, 'img9', 'abc131', 5);
+
+    await productos.addProduct('titulo10', 'descripcion10', 1000, 'img10', 'abc132', 5);
+
+   const product = await productos.getProductById(2);
+
+  console.log(product);
 
 }
 
@@ -154,4 +167,5 @@ test()
 //productos.deleteProduct(2)
 //const products =  productos.getProduct();
 //console.log(products);
-//productos.upDateProduct(1, { title: 'Nuevo título', price: 2000 });
+//productos.upDateProduct(1, { title: 'Nuevo título', price: 2000 });*/
+
